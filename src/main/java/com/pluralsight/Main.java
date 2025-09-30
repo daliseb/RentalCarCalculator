@@ -14,7 +14,7 @@ public class Main {
         double priceOfOptionGPS = 2.95;
         double priceOfOptionRoadsideAssistance = 3.95;
         float percentSurchargeForUnderage = 0.30f;
-        int userageLimit = 25;
+        int userAgeLimit = 25;
 
 
 
@@ -41,10 +41,23 @@ public class Main {
 
 
         //what needs to be calculated?
-        double basicCarRentalAmount = 0;
-        double optionsAmount = 0;
+        double basicCarRentalAmount = numberOfDays * priceOfBasicCarRentalPerDay;
+
+        double optionPerDayCumulative = (optionTollTag) ? priceOfOptionTollTag : 0;
+        optionPerDayCumulative += (optionGPS) ? priceOfOptionGPS : 0;
+        optionPerDayCumulative += (optionRoadsideAssistance) ? priceOfOptionRoadsideAssistance : 0;
+
+        double optionsAmount = optionPerDayCumulative + numberOfDays;
+
         double underageSurcharge = 0;
-        double totalCost = 0;
+
+        if (age < userAgeLimit) {
+            underageSurcharge = basicCarRentalAmount * numberOfDays;
+        }
+
+
+        double totalCost = basicCarRentalAmount + optionsAmount + underageSurcharge;
+
 
         //display the results.
 
